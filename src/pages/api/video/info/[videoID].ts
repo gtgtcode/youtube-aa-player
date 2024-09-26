@@ -14,7 +14,7 @@ export default async function handler(
 
   try {
     // Fetch video information
-    const info = await ytdl.getBasicInfo(videoID as string);
+    const info = await ytdl.getFullInfo(videoID as string);
 
     // Send back the video information as JSON
     res.status(200).json(info);

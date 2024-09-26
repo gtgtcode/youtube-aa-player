@@ -34,6 +34,7 @@ export default function Home() {
 
   useEffect(() => {
     getVideoInfo();
+    document.title = videoInfo?.videoDetails?.title;
   }, [fieldContents]);
 
   return (
@@ -52,13 +53,34 @@ export default function Home() {
           width="640"
           height="360"
           className="mx-auto"
-          controls
           autoPlay
+          controls
+          poster={videoInfo?.videoDetails?.media?.thumbnails[0]?.url}
           src={fieldContents !== "" ? `/api/video/stream/${fieldContents}` : ""}
         >
           Your browser does not support the video tag.
         </video>
-        <div className="mt-6 font-bold">{videoInfo?.videoDetails?.title}</div>
+        <div className="w-[640px] mx-auto">
+          <div className="mt-6 font-bold inline float-left">
+            {videoInfo?.videoDetails?.title}
+          </div>
+          <div className="mt-6 font-bold inline float-right">
+            {videoInfo?.videoDetails?.viewCount &&
+              Number(videoInfo.videoDetails.viewCount).toLocaleString()}
+          </div>
+        </div>
+        <br />{" "}
+        <div className="w-[640px] mx-auto text-left mt-4">
+          <br />
+          <img
+            className="rounded-full text-left inline mr-2"
+            src={videoInfo?.videoDetails?.author?.thumbnails[0].url}
+            alt=""
+          />
+          <div className="text-left inline">
+            {videoInfo?.videoDetails?.author?.name}
+          </div>
+        </div>
       </section>
     </div>
   );
