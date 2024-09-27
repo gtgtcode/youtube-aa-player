@@ -2,6 +2,7 @@ import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import localFont from "next/font/local";
 import { error } from "console";
+import VideoPlayer from "@/components/videoplayer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,7 +25,6 @@ export default function Home() {
       if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
       }
-
       const json = await response.json();
       setVideoInfo(json);
     } catch (e: any) {
@@ -49,24 +49,15 @@ export default function Home() {
         />
       </section>
       <section className="container mx-auto text-center mt-12">
-        <video
-          width="640"
-          height="360"
-          className="mx-auto"
-          autoPlay
-          controls
-          poster={videoInfo?.videoDetails?.media?.thumbnails[0]?.url}
-          src={fieldContents !== "" ? `/api/video/stream/${fieldContents}` : ""}
-        >
-          Your browser does not support the video tag.
-        </video>
+        <VideoPlayer
+          src={
+            fieldContents !== "" ? `/api/video/stream/${fieldContents}/0` : ""
+          }
+          videoInfo={videoInfo}
+        />
         <div className="w-[640px] mx-auto">
           <div className="mt-6 font-bold inline float-left">
             {videoInfo?.videoDetails?.title}
-          </div>
-          <div className="mt-6 font-bold inline float-right">
-            {videoInfo?.videoDetails?.viewCount &&
-              Number(videoInfo.videoDetails.viewCount).toLocaleString()}
           </div>
         </div>
         <br />{" "}
@@ -79,6 +70,11 @@ export default function Home() {
           />
           <div className="text-left inline">
             {videoInfo?.videoDetails?.author?.name}
+          </div>
+          <div className="mt-3 font-bold inline float-right">
+            {videoInfo?.videoDetails?.viewCount &&
+              Number(videoInfo.videoDetails.viewCount).toLocaleString()}{" "}
+            Views
           </div>
         </div>
       </section>
