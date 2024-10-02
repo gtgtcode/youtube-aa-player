@@ -107,7 +107,7 @@ export default function VideoPlayer(props: any) {
         )}
 
         <video
-          className="w-full h-full"
+          className="w-full h-full bg-black"
           autoPlay
           ref={videoRef}
           poster={props.videoInfo?.videoDetails?.media?.thumbnails[0]?.url}
