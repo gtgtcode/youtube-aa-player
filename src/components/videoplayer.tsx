@@ -101,7 +101,7 @@ export default function VideoPlayer(props: any) {
 
   return (
     <div>
-      <div className="w-[900px] h-[506px] mx-auto relative">
+      <div className="w-[900px] h-[506px] relative">
         {isLoading && !hasError && (
           <CircularProgress className="absolute top-1/2 left-1/2 !-translate-x-1/2 !-translate-y-1/2" />
         )}
