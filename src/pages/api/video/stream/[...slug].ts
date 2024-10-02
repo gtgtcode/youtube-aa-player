@@ -3,6 +3,12 @@ import { YtdlCore } from "@ybd-project/ytdl-core";
 
 const ytdl = new YtdlCore();
 
+export const config = {
+  api: {
+    responseLimit: false,
+  },
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
